@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('description')->nullable();
             $table->string('background')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

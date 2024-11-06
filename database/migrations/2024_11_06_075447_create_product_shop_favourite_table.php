@@ -11,20 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shop_categories', function (Blueprint $table) {
+        Schema::create('product_shop_favourite', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('background')->nullable();
+            $table->unsignedBigInteger('shop_product_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreign('parent_id')->references('id')->on('shop_categories')->cascadeOnDelete()->nullOnDelete();
+            $table->foreign('shop_product_id')->references('id')->on('shop_products')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shop_categories');
+        Schema::dropIfExists('product_shop_favourite');
     }
 };

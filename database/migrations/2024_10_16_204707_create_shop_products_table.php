@@ -26,8 +26,12 @@ return new class extends Migration
             $table->string('details')->nullable();
             $table->boolean('is_active')->default(1);
             $table->boolean('is_special')->default(0);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('shop_id')->references('id')->on('shops')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('product_category_id')->references('id')->on('product_categories')->cascadeOnUpdate()->nullOnDelete();
         });

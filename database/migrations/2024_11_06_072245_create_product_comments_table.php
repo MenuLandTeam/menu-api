@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shop_categories', function (Blueprint $table) {
+        Schema::create('product_comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('background')->nullable();
+            $table->unsignedBigInteger('shop_product_id')->nullable();
+            $table->text('comment')->nullable();
+            $table->boolean('is_accepted')->default(0);
+            $table->boolean('is_pinned')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreign('parent_id')->references('id')->on('shop_categories')->cascadeOnDelete()->nullOnDelete();
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shop_categories');
+        Schema::dropIfExists('product_comments');
     }
 };

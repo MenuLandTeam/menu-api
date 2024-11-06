@@ -27,8 +27,12 @@ return new class extends Migration
             $table->string('tel')->nullable();
             $table->string('location')->nullable();
             $table->boolean('is_active')->default(1);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('province_id')->references('id')->on('provinces')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('city_id')->references('id')->on('cities')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();

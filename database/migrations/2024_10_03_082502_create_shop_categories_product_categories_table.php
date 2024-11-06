@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('shop_category_id')->nullable();
             $table->unsignedBigInteger('product_category_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('shop_category_id')->references('id')->on('shop_categories')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('product_category_id')->references('id')->on('product_categories')->cascadeOnUpdate()->nullOnDelete();
         });
