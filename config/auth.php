@@ -36,6 +36,14 @@ return [
     */
 
     'guards' => [
+        'users' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+        'admins' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -63,6 +71,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admins::class,
         ],
 
         // 'users' => [

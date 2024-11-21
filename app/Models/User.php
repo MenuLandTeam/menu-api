@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,11 +18,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+   protected $guarded = [];
+
+    protected static function booted(): void
+    {
+        static::creating(static function ($model) {
+            $model->created_by = auth()->id();
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +45,37 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    //Relations
+
+    public function created_user(): BelongsTo
+    {
+        return $this->belongsTo(__CLASS__,'created_by');
+    }
+
+    public function updated_user(): BelongsTo
+    {
+        return $this->belongsTo(__CLASS__,'updated_by');
+    }
+
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
 }
