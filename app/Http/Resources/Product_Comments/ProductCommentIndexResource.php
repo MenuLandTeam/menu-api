@@ -5,7 +5,7 @@ namespace App\Http\Resources\Product_Comments;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductCommentsIndexResource extends JsonResource
+class ProductCommentIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
