@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
 
-    Route::post('login',[\App\Http\Controllers\Admis\Auth\AuthController::class, 'login'])->name('login');
+//    Route::post('login',[\App\Http\Controllers\Admis\Auth\AuthController::class, 'login'])->name('login');
 
 });
 

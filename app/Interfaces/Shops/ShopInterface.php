@@ -14,4 +14,10 @@ interface ShopInterface
 
     public function destroy($item);
 
+
+    //Users
+    public function users_index();
+
+    public function users_store($request);
+
 }

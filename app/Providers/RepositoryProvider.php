@@ -8,6 +8,7 @@ use App\Interfaces\Product_Comments\ProductCommentInterface;
 use App\Interfaces\Product_Media\ProductMediaInterface;
 use App\Interfaces\Product_Rates\ProductRateInterface;
 use App\Interfaces\Product_Shop_Favourite\ProductShopFavouriteInterface;
+use App\Interfaces\Profile\ProfileInterface;
 use App\Interfaces\Shop_Categories\ShopCategoryInterface;
 use App\Interfaces\Shop_Categories_Product_Categories\ShopCategoryProductCategoryInterface;
 use App\Interfaces\Shop_Comments\ShopCommentInterface;
@@ -21,6 +22,7 @@ use App\Repositories\Product_Comments\ProductCommentRepository;
 use App\Repositories\Product_Media\ProductMediaRepository;
 use App\Repositories\Product_Rates\ProductRateRepository;
 use App\Repositories\Product_Shop_Favourite\ProductShopFavouriteRepository;
+use App\Repositories\Profile\ProfileRepository;
 use App\Repositories\Shop_Categories\ShopCategoryRepository;
 use App\Repositories\Shop_Categories_Product_Categories\ShopCategoryProductCategoryRepository;
 use App\Repositories\Shop_Comments\ShopCommentRepository;
@@ -48,6 +50,7 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(ShopRateInterface::class,ShopRateRepository::class);
         $this->app->bind(ShopInterface::class,ShopRepository::class);
         $this->app->bind(UserShopFavouriteInterface::class,UserShopFavouriteRepository::class);
+        $this->app->bind(ProfileInterface::class,ProfileRepository::class);
 
     }
 

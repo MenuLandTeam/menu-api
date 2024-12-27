@@ -5,11 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,9 +25,9 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
-        static::creating(static function ($model) {
-            $model->created_by = auth()->id();
-        });
+//        static::creating(static function ($model) {
+//            $model->created_by = auth()->id();
+//        });
     }
 
     /**
@@ -51,6 +54,11 @@ class User extends Authenticatable
         return $this->getKey();
     }
 
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
     public function getJWTCustomClaims()
     {
         return [];
@@ -78,4 +86,8 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function shops(): HasMany
+    {
+        return $this->hasMany(Shop::class,'user_id');
+    }
 }

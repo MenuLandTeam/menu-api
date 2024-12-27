@@ -33,4 +33,22 @@ class Shop extends Model
     {
         return $this->belongsTo(User::class,'updated_by');
     }
+
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class,'province_id');
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Shop_Category::class,'shop_category_id');
+    }
+
+
+
 }
